@@ -15,25 +15,75 @@ class Pair {
 public class Hull {
 
     public static void main(String[] args) {
+        //make scanner
         Scanner scanner =  new Scanner(System.in);
+        //get number of pairs
+        System.out.println("Enter amount of points:");
         int N = scanner.nextInt();
+        //init arrays to hold the floats
         float[] x = new float[N];
         float[] y = new float[N];
+        //get the x and y values defined by the amount of times it was called
         for (int i = 0; i < N; i += 1) {
             x[i] = scanner.nextFloat();
             y[i] = scanner.nextFloat();
         }
-
+        scanner.close();
+        
+        //init the boundary as empty
         List<Pair> hullSegments = new ArrayList<Pair>();
-
         
         //TO DO!!
+        int bound_less, bound_more;
+        //for each x
+        for(int i=0; i<x.length; i+=1){
+            //for each y
+            for(int j=0; j<y.length; j+=1){
+                //get a = y2 - y1
+                float a = y[j] - y[i];
+                //get b = x1 - x2
+                float b = x[i] - x[j];
+                //get c = x1y2 - y1x2
+                float c = (x[i]*y[j]) - (y[i]*x[j]);
+                //for each combination of points on the set
+                for(int k=0; k<x.length; k+=1){
+                    //init the boundary counts resets here for the next segment
+                    bound_less=0; bound_more = 0;
+                    //see how a(xi) + b(yi) compare to c
+                    //if a(xi) + b(yi) < c
+                    if ((a*x[k]) + (b*y[k]) < c){
+                        //add to bound_less
+                        bound_less++;
+                    }
+                    //else if a(xi) + b(yi) > c
+                    else if((a*x[k]) + (b*y[k]) > c){
+                        //add to bound_more
+                        bound_more++;
+                    }
+                    //if all points are less than segment it is boundary and add to hull segments    
+                    if ((bound_less > 0) & (bound_more == 0)){
+                        hullSegments.add(i, Pair(j,k));
+                    }
+                    //if all points are more than segment then add to boundary          
+                    else if((bound_more > 0) & (bound_less == 0)){
+                        hullSegments.add(i, Pair(j,k));
+                    }
+                    else{
+                        ;
+                    }
+                } 
+            }    
+        }
 
 
         System.out.println(hullSegments.size());
         for (Pair p : hullSegments) {
             System.out.printf("%d %d\n", p.one, p.two);
         }
+    }
+
+    private static Pair Pair(int j, int k) {
+        return null;
     }
 
     private static float distance(float x1, float y1, float x2, float y2) {
