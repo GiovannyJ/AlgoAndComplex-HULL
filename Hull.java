@@ -35,12 +35,12 @@ public class Hull {
         
         //TO DO!!
         //init counts
-        
+        int bound_less, bound_more;
         //for each x
         for(int i=0; i<x.length; i+=1){
             //for each y
             for(int j=0; j<x.length; j+=1){
-                int bound_less =0; int bound_more = 0;
+                bound_less =0; bound_more = 0;
                 //get a = y2 - y1
                 float a = y[j] - y[i];
                 //get b = x1 - x2
