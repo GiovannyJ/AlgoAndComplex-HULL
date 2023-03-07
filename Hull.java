@@ -62,12 +62,16 @@ public class Hull {
                     } 
                 }
                 //if all points are less than segment it is boundary and add to hull segments    
-                if ((bound_less > 0) & (bound_more == 0)){
-                    hullSegments.add(new Pair(i,j));
+                if ((bound_less < 0) & (bound_more == 0)){
+                    if(){
+                        hullSegments.add(new Pair(i,j));
+                    }
                 }
                 //if all points are more than segment then add to boundary          
                 else if((bound_more > 0) & (bound_less == 0)){
-                    hullSegments.add(new Pair(i,j));
+                    if(){
+                        hullSegments.add(new Pair(i,j));
+                    }
                 }
                 // else{
                 //     System.out.println("THEY EQUAL");
