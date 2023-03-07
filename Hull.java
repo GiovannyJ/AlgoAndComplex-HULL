@@ -40,6 +40,7 @@ public class Hull {
         for(int i=0; i<x.length; i+=1){
             //for each y
             for(int j=0; j<x.length; j+=1){
+                boolean valid = true;
                 bound_less =0; bound_more = 0;
                 //get a = y2 - y1
                 float a = y[j] - y[i];
@@ -60,17 +61,32 @@ public class Hull {
                         //add to bound_more
                         bound_more++;
                     } 
+                    else if((a*x[k]) +(b*y[k])==c){
+                        //check if midpoint
+                        
+                        float distIJ = distance(x[i], y[i], x[j], y[j]);
+                        float distIK = distance(x[i], y[i], x[k], y[k]);
+                        float distJK = distance(x[j], y[j], x[k], y[k]);
+                        if((distIJ < distIK) | (distIJ < distJK)){
+                            valid = false;
+                        }
+                    }
                 }
                 //if all points are less than segment it is boundary and add to hull segments    
                 if ((bound_less < 0) & (bound_more == 0)){
-                    if(){
+                    //if distance between i and j is less than i and k
+                    //or
+                    //if distance between i adn j is less than j and k
+                    if(valid){
                         hullSegments.add(new Pair(i,j));
+
                     }
                 }
                 //if all points are more than segment then add to boundary          
                 else if((bound_more > 0) & (bound_less == 0)){
-                    if(){
+                    if(valid){
                         hullSegments.add(new Pair(i,j));
+
                     }
                 }
                 // else{
